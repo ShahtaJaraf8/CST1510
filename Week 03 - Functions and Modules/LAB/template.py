@@ -2,11 +2,11 @@
 RECORD CHECK  -  my version
 ===========================
 
-Name  :
-Lane  :  AI / Cyber / IT      (delete two)
+Name  :  Shahta Jaraf
+Lane  :  AI
 Date  :
 
-Run it:   python template.py
+Run it:  python template.py
 
 Work through the numbered sections in order. Each one tells you what it must do.
 Delete these instructions as you replace them with your code.
@@ -28,6 +28,15 @@ Delete these instructions as you replace them with your code.
 
 # your function(s) go here
 
+def status_of(percent):
+    if percent >= 100:
+        return "OVER LIMIT"
+    elif percent >= 90:
+        return "WARNING"
+    else:
+        return "OK"
+    
+    
 
 # ==================================================================== INPUT
 # 2. Ask for your three values.
