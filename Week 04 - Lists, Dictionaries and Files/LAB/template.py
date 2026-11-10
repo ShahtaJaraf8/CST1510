@@ -2,9 +2,9 @@
 RECORD CHECK  -  my version
 ===========================
 
-Name  :
-Lane  :  AI / Cyber / IT      (delete two)
-Date  :
+Name  :  Shahta Jaraf
+Lane  :  AI 
+Date  :  28/10/2026
 
 Run it:   python template.py
 
@@ -21,29 +21,67 @@ Delete these instructions as you replace them with your code.
 
 # your function(s) go here
 
-
-# ====================================================================== STORE
-# 2. Get your records into a list of dicts, each shaped like:
-#        {"label": ..., "value": ..., "limit": ...}
-#
-#    Threshold : write the list directly in the code - at least 3 records.
-#    Typical   : instead, write a function load_records(path) that reads
-#                label,value,limit lines from a file and returns the list.
-#                Make your own data file, one record per line.
-#    Excellent : also write the results out to a new file (one line per
-#                record: label, status), as well as printing them.
-
-records = []   # replace with your code
+from matplotlib.pylab import record
 
 
-# =============================================================== PROCESS + OUTPUT
-# 3. Loop over records. For each one, call check_record and print_report.
-#
-#    Excellent : also keep a running count of how many were OVER LIMIT, and
-#                print that once, after the loop ends.
+def status_of(percent):
+    if percent >= 100:
+        return "OVER LIMIT"
+    elif percent >= 90:
+        return "WARNING"
+    else:
+        return "OK"
 
-# your loop goes here
 
+
+label = input("Enter label")     
+value = float(input("Enter value"))     
+limit = float(input("Enter limit"))   
+
+def check(value, limit):
+    """Calculate the difference and percentage of value against limit."""
+    difference = limit - value
+    percent = (value / limit) * 100 if limit != 0 else 0
+    return difference, percent
+
+
+difference, percent = check(value, limit)
+status = status_of(percent)         
+
+
+print()
+print("=" * 34)
+print(f"  RECORD CHECK  -  {label}")
+print("=" * 34)
+# your report lines go here
+print(f"  Used: {value:6.2f}")
+print(f"  Total: {limit:6.2f}")
+print(f"  Free: {difference:6.2f}")
+print(f"  Percent: {percent:6.2f}%")
+print(f"  Status: {status}")
+print("=" * 34)
+
+def load_records(path):
+    """Load records from a file and return a list of dictionaries."""
+    records = []
+    with open(path, "r") as f:
+        for line in f:
+            label, value, limit = line.strip().split(',')
+            record = {
+                "label": label,
+                "value": float(value),
+                "limit": float(limit)
+            }
+            records.append(record)
+    return records
+
+records = load_records(r"C:\Users\HP\Documents\CST1510\Week 04 - Lists, Dictionaries and Files\LAB\records_sample.txt")  # replace with your code
+
+
+for item in records:
+    difference, percent = check(item["value"], item["limit"])
+    status = status_of(percent)
+    print(item["label"], item["value"], item["limit"], difference, percent, status)
 
 # ==========================================================================
 # 4. Before you finish:
